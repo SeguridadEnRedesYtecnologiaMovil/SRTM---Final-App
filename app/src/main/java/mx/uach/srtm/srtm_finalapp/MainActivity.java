@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         ScanFilter.Builder mBuilder = new ScanFilter.Builder();
         ByteBuffer mManufacturerData = ByteBuffer.allocate(23);
         ByteBuffer mManufacturerDataMask = ByteBuffer.allocate(24);
-        byte[] uuid = getIdAsByte(UUID.fromString("0CF052C297CA407C84F8B62AAC4E9020");
+        byte[] uuid = getIdAsByte(UUID.fromString("0CF052C297CA407C84F8B62AAC4E9020"));
         mManufacturerData.put(0, (byte)0xBE);
         mManufacturerData.put(1, (byte)0xAC);
         for (int i=2; i<=17; i++) {
@@ -53,6 +53,14 @@ public class MainActivity extends AppCompatActivity {
         mBuilder.setReportDelay(0);
         mBuilder.setScanMode(ScanSettings.SCAN_MODE_LOW_POWER);
         mScanSettings = mBuilder.build();
+    }
+
+    public static byte[] getIdAsByte(java.util.UUID uuid)
+    {
+        ByteBuffer bb = ByteBuffer.wrap(new byte[16]);
+        bb.putLong(uuid.getMostSignificantBits());
+        bb.putLong(uuid.getLeastSignificantBits());
+        return bb.array();
     }
 
 }
