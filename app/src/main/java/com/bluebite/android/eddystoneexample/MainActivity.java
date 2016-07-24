@@ -1,5 +1,6 @@
 package com.bluebite.android.eddystoneexample;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -9,7 +10,12 @@ import com.bluebite.android.eddystone.Global;
 import com.bluebite.android.eddystone.Scanner;
 import com.bluebite.android.eddystone.ScannerDelegate;
 import com.bluebite.android.eddystone.Url;
+import com.bluebite.android.eddystoneexample.models.Usuario;
+import com.bluebite.android.eddystoneexample.utils.ReadJson;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -44,5 +50,31 @@ public class MainActivity extends AppCompatActivity implements ScannerDelegate {
             }
         });
         Log.i(TAG, Arrays.toString(Scanner.nearbyUrls()));
+    }
+
+    public List<Usuario> getUsuarios(){
+
+        ConnectServer server = new ConnectServer();
+        server.execute();
+        List<Usuario> usuarios = new ArrayList<>();
+
+        try {
+            String json = server.get();
+            Gson gson = new Gson();
+            Type listType = new TypeToken<List<Usuario>>(){}.getType();
+            usuarios = gson.fromJson(json, listType);
+        } catch (Exception e){
+            Log.e("Error", "No pude leer el JSON.");
+        }
+
+        return usuarios;
+    }
+
+    private class ConnectServer extends AsyncTask<Void, Integer, String> {
+        @Override
+        protected String doInBackground(Void... voids) {
+            String json = ReadJson.read(ReadJson.URL_USUARIO);
+            return json;
+        }
     }
 }
