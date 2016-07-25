@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.bluebite.android.eddystone.Global;
@@ -26,19 +27,24 @@ public class MainActivity extends AppCompatActivity implements ScannerDelegate {
     private BeaconAdapter mBeaconAdapter;
     public static ReadJson readJson = new ReadJson();
     public static String URL_USUARIO = "";
+    private ListView lstVwUsuarios;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
         ListView beaconListView = (ListView) findViewById(R.id.beaconListView);
         mBeaconAdapter = new BeaconAdapter(this, R.layout.beacon_list_item, mUrls);
         beaconListView.setAdapter(mBeaconAdapter);
+
         Global.logging = true;
         Global.expireTimer = 30000;
         Scanner.start(this);
+       /* this.lstVwUsuarios = (ListView) findViewById(R.id.lstVwUsuarios);
+        List<Usuario> usuarios = getUsuarios();
+        ArrayAdapter<Usuario> adapter = new ArrayAdapter<Usuario>(this,
+                android.R.layout.activity_list_item, android.R.id.text1, usuarios);
+        this.lstVwUsuarios.setAdapter(adapter);*/
     }
 
     @Override

@@ -12,11 +12,14 @@ import com.bluebite.android.eddystone.Url;
 
 import java.util.List;
 
+import mx.uach.srtm.models.Usuario;
+
 public class BeaconAdapter extends ArrayAdapter<Url>{
 
     List<Url> urls;
     Activity mContext;
     int resourceId;
+
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
