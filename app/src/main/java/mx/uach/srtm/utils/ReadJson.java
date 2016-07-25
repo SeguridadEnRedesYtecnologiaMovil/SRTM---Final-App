@@ -17,26 +17,10 @@ import java.util.List;
  */
 public class ReadJson {
 
-    //private final static String DOMAIN = "http://jsonplaceholder.typicode.com/users";
-    public static String URL_USUARIO = "";
+//    private final static String DOMAIN = "http://jsonplaceholder.typicode.com/users";
 
     public static void setUrlUsuario(List<Url> urls) {
-        System.out.println("=====================================");
-        System.out.println("setUrlUsuario");
-        System.out.println("=====================================");
-        for (Url url : urls) {
-            String str = url.getUrl().toString();
-            System.out.println("str = " + str);
-            if (str.equals("http://bit.ly/2a2QDMc")) {
 
-                System.out.println("\ntrue");
-                URL_USUARIO = str;
-            } else{
-                System.out.println("\tfalse");
-            }
-            System.out.println("URL_USUARIO = " + URL_USUARIO);
-
-        }
     }
 
     public static String read(String url){

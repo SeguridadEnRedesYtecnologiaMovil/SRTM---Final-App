@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity implements ScannerDelegate {
     private List<Url> mUrls = new ArrayList<>();
     private BeaconAdapter mBeaconAdapter;
     public static ReadJson readJson = new ReadJson();
-
+    public static String URL_USUARIO = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,9 +51,12 @@ public class MainActivity extends AppCompatActivity implements ScannerDelegate {
                 mBeaconAdapter.addAll(mUrls);
             }
         });
-
-        readJson.setUrlUsuario(mUrls);
-
+        for (Url url : mUrls) {
+            String str = url.getUrl().toString();
+            if (str.equals("http://bit.ly/2a2QDMc")) {
+                URL_USUARIO = str;
+            }
+        }
 //        Log.i(TAG, Arrays.toString(Scanner.nearbyUrls()));
 //        mBeaconAdapter.
 //        System.out.println(mUrls.isEmpty());
@@ -80,7 +83,7 @@ public class MainActivity extends AppCompatActivity implements ScannerDelegate {
     private class ConnectServer extends AsyncTask<Void, Integer, String> {
         @Override
         protected String doInBackground(Void... voids) {
-            String json = readJson.read(ReadJson.URL_USUARIO);
+            String json = ReadJson.read(URL_USUARIO);
             return json;
         }
     }
