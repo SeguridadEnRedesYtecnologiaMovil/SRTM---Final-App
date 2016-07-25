@@ -14,36 +14,4 @@
         android:textColor="@android:color/black"
         />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="New Text"
-        android:id="@+id/batteryView"
-        android:padding="1dp"
-        android:textColor="#ffaaaaaa"/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="New Text"
-        android:id="@+id/temperatureView"
-        android:padding="1dp"
-        android:textColor="#ffaaaaaa"/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="New Text"
-        android:id="@+id/advertisementCountView"
-        android:padding="1dp"
-        android:textColor="#ffaaaaaa"/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="New Text"
-        android:id="@+id/onTimeView"
-        android:padding="1dp"
-        android:textColor="#ffaaaaaa"
-        />
 </LinearLayout>

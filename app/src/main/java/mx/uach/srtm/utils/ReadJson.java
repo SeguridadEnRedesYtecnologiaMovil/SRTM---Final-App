@@ -2,12 +2,15 @@ package mx.uach.srtm.utils;
 
 import android.util.Log;
 
+import com.bluebite.android.eddystone.Url;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.List;
 
 /**
  * Created by dani on 5/07/16.
@@ -15,7 +18,26 @@ import java.net.URL;
 public class ReadJson {
 
     //private final static String DOMAIN = "http://jsonplaceholder.typicode.com/users";
-    public final static String URL_USUARIO = "";
+    public static String URL_USUARIO = "";
+
+    public static void setUrlUsuario(List<Url> urls) {
+        System.out.println("=====================================");
+        System.out.println("setUrlUsuario");
+        System.out.println("=====================================");
+        for (Url url : urls) {
+            String str = url.getUrl().toString();
+            System.out.println("str = " + str);
+            if (str.equals("http://bit.ly/2a2QDMc")) {
+
+                System.out.println("\ntrue");
+                URL_USUARIO = str;
+            } else{
+                System.out.println("\tfalse");
+            }
+            System.out.println("URL_USUARIO = " + URL_USUARIO);
+
+        }
+    }
 
     public static String read(String url){
         String json = "{}";

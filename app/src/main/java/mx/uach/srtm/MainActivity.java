@@ -24,6 +24,8 @@ public class MainActivity extends AppCompatActivity implements ScannerDelegate {
     private static final String TAG = MainActivity.class.getSimpleName();
     private List<Url> mUrls = new ArrayList<>();
     private BeaconAdapter mBeaconAdapter;
+    public static ReadJson readJson = new ReadJson();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +51,12 @@ public class MainActivity extends AppCompatActivity implements ScannerDelegate {
                 mBeaconAdapter.addAll(mUrls);
             }
         });
-        Log.i(TAG, Arrays.toString(Scanner.nearbyUrls()));
+
+        readJson.setUrlUsuario(mUrls);
+
+//        Log.i(TAG, Arrays.toString(Scanner.nearbyUrls()));
+//        mBeaconAdapter.
+//        System.out.println(mUrls.isEmpty());
     }
 
     public List<Usuario> getUsuarios(){
@@ -73,7 +80,7 @@ public class MainActivity extends AppCompatActivity implements ScannerDelegate {
     private class ConnectServer extends AsyncTask<Void, Integer, String> {
         @Override
         protected String doInBackground(Void... voids) {
-            String json = ReadJson.read(ReadJson.URL_USUARIO);
+            String json = readJson.read(ReadJson.URL_USUARIO);
             return json;
         }
     }
