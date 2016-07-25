@@ -28,6 +28,7 @@ public class    MainActivity extends AppCompatActivity implements ScannerDelegat
     public static ReadJson readJson = new ReadJson();
     public static String URL_USUARIO;
     private ListView lstVwUsuarios;
+    List<Usuario> usuarios;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,18 +41,11 @@ public class    MainActivity extends AppCompatActivity implements ScannerDelegat
         Global.logging = true;
         Global.expireTimer = 30000;
         Scanner.start(this);
-       /*this.lstVwUsuarios = (ListView) findViewById(R.id.lstVwUsuarios);
-        List<Usuario> usuarios = getUsuarios();
-        ArrayAdapter<Usuario> adapter = new ArrayAdapter<Usuario>(this,
-                android.R.layout.activity_list_item, android.R.id.text1, usuarios);
-        this.lstVwUsuarios.setAdapter(adapter);*/
+       this.lstVwUsuarios = (ListView) findViewById(R.id.lstVwUsuarios);
     }
 
     @Override
     public void eddytoneNearbyDidChange() {
-        System.out.println("gkdfl{sgkfdṕgfdogksdfpokgsfpokgdfsṕo");
-        System.out.println("gkdfl{sgkfdṕgfdogksdfpokgsfpokgdfsṕo");
-        System.out.println("gkdfl{sgkfdṕgfdogksdfpokgsfpokgdfsṕo");
         mUrls = Arrays.asList(Scanner.nearbyUrls());
         runOnUiThread(new Runnable() {
             @Override
@@ -60,14 +54,18 @@ public class    MainActivity extends AppCompatActivity implements ScannerDelegat
                 mBeaconAdapter.addAll(mUrls);
             }
         });
+        System.out.println("mUrls = " + mUrls.size());
         for (Url url : mUrls) {
             String str = url.getUrl().toString();
+            System.out.println("str = " + str);
             if (str.equals("http://bit.ly/2a2QDMc")) {
                 URL_USUARIO = str;
+                usuarios = getUsuarios();
+                ArrayAdapter<Usuario> adapter = new ArrayAdapter<Usuario>(this,
+                        android.R.layout.activity_list_item, android.R.id.text1, usuarios);
+                this.lstVwUsuarios.setAdapter(adapter);
             }
-            System.out.println("URL_USUARIO = " + URL_USUARIO);
-            System.out.println("URL_USUARIO = " + URL_USUARIO);
-            System.out.println("URL_USUARIO = " + URL_USUARIO);
+            System.out.println("URL_USUARIO After pedo = " + URL_USUARIO);
 
         }
 //        Log.i(TAG, Arrays.toString(Scanner.nearbyUrls()));
@@ -76,14 +74,12 @@ public class    MainActivity extends AppCompatActivity implements ScannerDelegat
     }
 
     public List<Usuario> getUsuarios(){
-
-        //ConnectServer server = new ConnectServer();
-        //server.execute();
+        ConnectServer server = new ConnectServer();
+        server.execute();
         List<Usuario> usuarios = new ArrayList<>();
 
         try {
-            //String json = server.get();
-            String json = ReadJson.read(URL_USUARIO);
+            String json = server.get();
             Gson gson = new Gson();
             Type listType = new TypeToken<List<Usuario>>(){}.getType();
             usuarios = gson.fromJson(json, listType);
@@ -94,12 +90,12 @@ public class    MainActivity extends AppCompatActivity implements ScannerDelegat
         return usuarios;
     }
 
-    /*private class ConnectServer extends AsyncTask<Void, Integer, String> {
+    private class ConnectServer extends AsyncTask<Void, Integer, String> {
         @Override
         protected String doInBackground(Void... voids) {
             String json = ReadJson.read(URL_USUARIO);
-            System.out.println("URL!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + URL_USUARIO);
+            System.out.println("json = " + json);
             return json;
         }
-    }*/
+    }
 }

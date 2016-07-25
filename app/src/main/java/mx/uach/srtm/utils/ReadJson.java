@@ -27,9 +27,13 @@ public class ReadJson {
         String json = "{}";
         try {
             URL ruta = new URL(url);
+            System.out.println("Aqui toy");
             HttpURLConnection con = (HttpURLConnection) ruta.openConnection();
-            json = transformBuffer(con.getInputStream()).toString();
+            System.out.println("mi mama me mima");
+            json = transformBuffer(con.getInputStream());
         }catch (Exception ex){
+            System.out.println("ex = " + ex);
+            System.out.println("ex.getMessage() = " + ex.getMessage());
             Log.w("Error", "No se puede leer el servicio.");
             json = "null";
         }
