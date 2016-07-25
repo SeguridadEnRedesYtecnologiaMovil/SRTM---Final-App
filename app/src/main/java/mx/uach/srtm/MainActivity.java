@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements ScannerDelegate {
+public class    MainActivity extends AppCompatActivity implements ScannerDelegate {
     private static final String TAG = MainActivity.class.getSimpleName();
     private List<Url> mUrls = new ArrayList<>();
     private BeaconAdapter mBeaconAdapter;
