@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity implements ScannerDelegate {
     private List<Url> mUrls = new ArrayList<>();
     private BeaconAdapter mBeaconAdapter;
     public static ReadJson readJson = new ReadJson();
-    public static String URL_USUARIO = "";
+    public static String URL_USUARIO;
     private ListView lstVwUsuarios;
 
     @Override
@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements ScannerDelegate {
         Global.logging = true;
         Global.expireTimer = 30000;
         Scanner.start(this);
-       /* this.lstVwUsuarios = (ListView) findViewById(R.id.lstVwUsuarios);
+       /*this.lstVwUsuarios = (ListView) findViewById(R.id.lstVwUsuarios);
         List<Usuario> usuarios = getUsuarios();
         ArrayAdapter<Usuario> adapter = new ArrayAdapter<Usuario>(this,
                 android.R.layout.activity_list_item, android.R.id.text1, usuarios);
@@ -49,6 +49,9 @@ public class MainActivity extends AppCompatActivity implements ScannerDelegate {
 
     @Override
     public void eddytoneNearbyDidChange() {
+        System.out.println("gkdfl{sgkfdṕgfdogksdfpokgsfpokgdfsṕo");
+        System.out.println("gkdfl{sgkfdṕgfdogksdfpokgsfpokgdfsṕo");
+        System.out.println("gkdfl{sgkfdṕgfdogksdfpokgsfpokgdfsṕo");
         mUrls = Arrays.asList(Scanner.nearbyUrls());
         runOnUiThread(new Runnable() {
             @Override
@@ -62,6 +65,10 @@ public class MainActivity extends AppCompatActivity implements ScannerDelegate {
             if (str.equals("http://bit.ly/2a2QDMc")) {
                 URL_USUARIO = str;
             }
+            System.out.println("URL_USUARIO = " + URL_USUARIO);
+            System.out.println("URL_USUARIO = " + URL_USUARIO);
+            System.out.println("URL_USUARIO = " + URL_USUARIO);
+
         }
 //        Log.i(TAG, Arrays.toString(Scanner.nearbyUrls()));
 //        mBeaconAdapter.
@@ -70,12 +77,13 @@ public class MainActivity extends AppCompatActivity implements ScannerDelegate {
 
     public List<Usuario> getUsuarios(){
 
-        ConnectServer server = new ConnectServer();
-        server.execute();
+        //ConnectServer server = new ConnectServer();
+        //server.execute();
         List<Usuario> usuarios = new ArrayList<>();
 
         try {
-            String json = server.get();
+            //String json = server.get();
+            String json = ReadJson.read(URL_USUARIO);
             Gson gson = new Gson();
             Type listType = new TypeToken<List<Usuario>>(){}.getType();
             usuarios = gson.fromJson(json, listType);
@@ -86,11 +94,12 @@ public class MainActivity extends AppCompatActivity implements ScannerDelegate {
         return usuarios;
     }
 
-    private class ConnectServer extends AsyncTask<Void, Integer, String> {
+    /*private class ConnectServer extends AsyncTask<Void, Integer, String> {
         @Override
         protected String doInBackground(Void... voids) {
             String json = ReadJson.read(URL_USUARIO);
+            System.out.println("URL!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + URL_USUARIO);
             return json;
         }
-    }
+    }*/
 }
