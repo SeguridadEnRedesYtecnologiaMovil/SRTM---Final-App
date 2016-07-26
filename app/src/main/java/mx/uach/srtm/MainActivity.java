@@ -11,6 +11,8 @@ import com.bluebite.android.eddystone.Global;
 import com.bluebite.android.eddystone.Scanner;
 import com.bluebite.android.eddystone.ScannerDelegate;
 import com.bluebite.android.eddystone.Url;
+
+import mx.uach.srtm.models.Pendiente;
 import mx.uach.srtm.models.Usuario;
 import mx.uach.srtm.utils.ReadJson;
 import com.google.gson.Gson;
@@ -26,9 +28,9 @@ public class    MainActivity extends AppCompatActivity implements ScannerDelegat
     private List<Url> mUrls = new ArrayList<>();
     private BeaconAdapter mBeaconAdapter;
     public static ReadJson readJson = new ReadJson();
-    public static String URL_USUARIO;
+    public static String URL_PENDIENTE;
     private ListView lstVwUsuarios;
-    List<Usuario> usuarios;
+    List<Pendiente> pendientes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,13 +61,13 @@ public class    MainActivity extends AppCompatActivity implements ScannerDelegat
             String str = url.getUrl().toString();
             System.out.println("str = " + str);
             if (str.equals("http://bit.ly/2a2QDMc")) {
-                URL_USUARIO = str;
-                usuarios = getUsuarios();
-                ArrayAdapter<Usuario> adapter = new ArrayAdapter<Usuario>(this,
-                        android.R.layout.activity_list_item, android.R.id.text1, usuarios);
+                URL_PENDIENTE = str;
+                pendientes = getPendientes();
+                ArrayAdapter<Pendiente> adapter = new ArrayAdapter<Pendiente>(this,
+                        android.R.layout.activity_list_item, android.R.id.text1, pendientes);
                 this.lstVwUsuarios.setAdapter(adapter);
             }
-            System.out.println("URL_USUARIO After pedo = " + URL_USUARIO);
+            System.out.println("URL_PENDIENTE After pedo = " + URL_PENDIENTE);
 
         }
 //        Log.i(TAG, Arrays.toString(Scanner.nearbyUrls()));
@@ -73,27 +75,27 @@ public class    MainActivity extends AppCompatActivity implements ScannerDelegat
 //        System.out.println(mUrls.isEmpty());
     }
 
-    public List<Usuario> getUsuarios(){
+    public List<Pendiente> getPendientes(){
         ConnectServer server = new ConnectServer();
         server.execute();
-        List<Usuario> usuarios = new ArrayList<>();
+        List<Pendiente> pendientes = new ArrayList<>();
 
         try {
             String json = server.get();
             Gson gson = new Gson();
-            Type listType = new TypeToken<List<Usuario>>(){}.getType();
-            usuarios = gson.fromJson(json, listType);
+            Type listType = new TypeToken<List<Pendiente>>(){}.getType();
+            pendientes = gson.fromJson(json, listType);
         } catch (Exception e){
             Log.e("Error", "No pude leer el JSON.");
         }
 
-        return usuarios;
+        return pendientes;
     }
 
     private class ConnectServer extends AsyncTask<Void, Integer, String> {
         @Override
         protected String doInBackground(Void... voids) {
-            String json = ReadJson.read(URL_USUARIO);
+            String json = ReadJson.read(URL_PENDIENTE);
             System.out.println("json = " + json);
             return json;
         }

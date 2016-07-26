@@ -120,4 +120,10 @@ public class Pendiente {
     public void setTerminado(Boolean terminado) {
         this.terminado = terminado;
     }
+
+    @Override
+    public String toString(){
+        return String.format("%s - %s", this.getDescripcion(), this.getPrioridad());
+    }
+
 }
